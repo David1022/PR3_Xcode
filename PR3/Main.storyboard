@@ -561,9 +561,13 @@
                     </view>
                     <connections>
                         <outlet property="firstField" destination="0Nb-Hl-lHc" id="LwZ-9q-KZZ"/>
+                        <outlet property="firstLabel" destination="nER-Uv-rTV" id="o44-P2-rQv"/>
                         <outlet property="fourthField" destination="P5J-xy-r6k" id="eam-M2-mPf"/>
+                        <outlet property="fourthLabel" destination="cLK-qn-WUx" id="K5M-Fz-PGa"/>
                         <outlet property="secondField" destination="1kT-Bg-b3C" id="dg4-9H-T8Z"/>
+                        <outlet property="secondLabel" destination="0JQ-OG-vI0" id="D6g-7a-PtA"/>
                         <outlet property="thirdField" destination="Eqh-Oh-sDc" id="Daj-5j-HGK"/>
+                        <outlet property="thirdLabel" destination="lOS-qe-FXh" id="dxw-LA-Uu7"/>
                         <segue destination="lnl-au-HBQ" kind="show" identifier="SegueToMainNavigation" id="wWO-IB-d6h"/>
                     </connections>
                 </viewController>
