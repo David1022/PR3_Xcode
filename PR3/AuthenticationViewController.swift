@@ -12,10 +12,13 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var secondField: UITextField!
     @IBOutlet weak var thirdField: UITextField!
     @IBOutlet weak var fourthField: UITextField!
+    
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var fourthLabel: UILabel!
+    
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // We first check that the user is only entering numeric characters
@@ -57,7 +60,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
         
         if validCode {
             // BEGIN-UOC-1
-            animateViews()
+            fadeOutViews()
 //            self.performSegue (withIdentifier: "SegueToMainNavigation", sender: self)
             // END-UOC-1
         } else {
@@ -80,7 +83,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func animateViews() {
+    func fadeOutViews() {
         UIView.animate(withDuration: 0.5, animations: {self.firstLabel.alpha = 0})
         UIView.animate(withDuration: 0.5, animations: {self.secondLabel.alpha = 0})
         UIView.animate(withDuration: 0.5, animations: {self.thirdLabel.alpha = 0})
