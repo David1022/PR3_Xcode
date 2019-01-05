@@ -18,7 +18,9 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var fourthLabel: UILabel!
     
-    
+    @IBOutlet weak var backButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nextButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var enterTextConstraint: NSLayoutConstraint!
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // We first check that the user is only entering numeric characters
@@ -92,7 +94,22 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 0.5, animations: {self.firstField.alpha = 0})
         UIView.animate(withDuration: 0.5, animations: {self.secondField.alpha = 0})
         UIView.animate(withDuration: 0.5, animations: {self.thirdField.alpha = 0})
-        UIView.animate(withDuration: 0.5, animations: {self.fourthField.alpha = 0}, completion: {_ in self.performSegue (withIdentifier: "SegueToMainNavigation", sender: self)
-})
+        UIView.animate(withDuration: 0.5, animations: {self.fourthField.alpha = 0},
+                       completion: {_ in self.layoutViews()})
+    }
+    
+    func layoutViews() {
+        UIView.animate(withDuration: 1, animations: {
+            self.backButtonConstraint.constant = self.view.bounds.width
+            self.view.layoutIfNeeded()
+        })
+        UIView.animate(withDuration: 1, animations: {
+            self.nextButtonConstraint.constant = -self.view.bounds.width
+            self.view.layoutIfNeeded()
+        })
+        UIView.animate(withDuration: 1, animations: {
+            self.enterTextConstraint.constant = -self.view.bounds.height
+            self.view.layoutIfNeeded()
+        }, completion: {_ in self.performSegue (withIdentifier: "SegueToMainNavigation", sender: self)})
     }
 }
