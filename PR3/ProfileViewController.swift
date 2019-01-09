@@ -11,6 +11,7 @@ class ProfileViewController: UITableViewController {
     var currentProfile: Profile?
     
     // BEGIN-UOC-2
+    
     // END-UOC-2
     
     override func viewDidLoad() {
