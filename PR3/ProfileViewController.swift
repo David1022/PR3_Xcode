@@ -11,7 +11,13 @@ class ProfileViewController: UITableViewController {
     var currentProfile: Profile?
     
     // BEGIN-UOC-2
-    
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var surname: UITextField!
+    @IBOutlet weak var streetAddress: UITextField!
+    @IBOutlet weak var city: UITextField!
+    @IBOutlet weak var occupation: UITextField!
+    @IBOutlet weak var company: UITextField!
+    @IBOutlet weak var income: UITextField!
     // END-UOC-2
     
     override func viewDidLoad() {
