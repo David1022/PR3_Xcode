@@ -277,7 +277,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad" returnKeyType="next" textContentType="name"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -319,7 +319,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad" returnKeyType="next" textContentType="name"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -368,7 +368,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -410,7 +410,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -456,7 +456,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -498,7 +498,7 @@
                                                             <rect key="frame" x="122.5" y="0.0" width="220.5" height="24"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -548,7 +548,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="209.5" height="24"/>
                                                                     <nil key="textColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                                 </textField>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHe-gr-wFz">
                                                                     <rect key="frame" x="209.5" y="0.0" width="11" height="24"/>
