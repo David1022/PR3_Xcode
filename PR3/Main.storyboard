@@ -236,16 +236,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OQV-7K-3la">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OQV-7K-3la">
                                                     <rect key="frame" x="137.5" y="10" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="KEk-pI-EAv"/>
-                                                        <constraint firstAttribute="height" constant="100" id="aoe-xp-0Wq"/>
+                                                        <constraint firstAttribute="width" secondItem="OQV-7K-3la" secondAttribute="height" multiplier="1:1" id="fZL-lI-4VR"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZD-VA-zqY">
                                                     <rect key="frame" x="115.5" y="118" width="144" height="30"/>
                                                     <state key="normal" title="Update profile image"/>
+                                                    <connections>
+                                                        <action selector="takePicture:" destination="fe4-ee-QlH" eventType="touchUpInside" id="ItL-n4-ZGY"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -635,6 +638,7 @@
                         <outlet property="income" destination="MXl-ui-IkP" id="DOY-h2-BgY"/>
                         <outlet property="name" destination="umk-T9-zS4" id="vA0-r6-7Lk"/>
                         <outlet property="occupation" destination="EZm-Lq-0Tb" id="yWy-Gn-Yya"/>
+                        <outlet property="profileImage" destination="OQV-7K-3la" id="R3u-FW-kwD"/>
                         <outlet property="streetAddress" destination="beX-7C-dck" id="boa-Vf-WA2"/>
                         <outlet property="surname" destination="9Dg-Rv-baK" id="L8E-am-qTr"/>
                     </connections>
@@ -1061,8 +1065,8 @@
     </scenes>
     <resources>
         <image name="bank" width="100" height="100"/>
-        <image name="calculator" width="32" height="32"/>
-        <image name="movements" width="25" height="25"/>
-        <image name="profile" width="25" height="25"/>
+        <image name="calculator" width="64" height="64"/>
+        <image name="movements" width="50" height="50"/>
+        <image name="profile" width="50" height="50"/>
     </resources>
 </document>

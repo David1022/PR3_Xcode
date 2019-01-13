@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UITableViewController, UITextFieldDelegate {
+class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var currentProfile: Profile?
     
     // BEGIN-UOC-2
@@ -112,6 +112,25 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate {
     // END-UOC-5
     
     // BEGIN-UOC-6
+    @IBOutlet var profileImage: UIImageView!
+    @IBAction func takePicture(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            //I have no physical device to test this behavior
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        profileImage.image = image
+        dismiss(animated: true, completion: nil)
+    }
     // END-UOC-6
     
     // BEGIN-UOC-7
