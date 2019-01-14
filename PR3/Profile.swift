@@ -47,6 +47,6 @@ class Profile: NSObject, NSCoding {
         let company = aDecoder.decodeObject(forKey: "company") as! String
         let income = aDecoder.decodeInteger(forKey: "income")
 
-        self.init(name: name, surname: surname, streetAddress: streetAddress, city: city, occupation: occupation, company: company, income: 1)
+        self.init(name: name, surname: surname, streetAddress: streetAddress, city: city, occupation: occupation, company: company, income: income)
     }
 }

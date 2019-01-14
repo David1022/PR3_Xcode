@@ -23,15 +23,43 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
     override func viewDidLoad() {
         currentProfile = loadProfile()
         
-        initializeOutlets()
+        self.initializeOutlets()
+        self.tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
     
     // BEGIN-UOC-3
     @IBAction func saveChanges(_ sender: Any) {
-        if let userName = name.text, let userSurname = surname.text, let userStreetAddress = streetAddress.text, let userCity = city.text, let userOccupation = occupation.text, let userCompany = company.text, let _ = income.text {
-            currentProfile = Profile(name: userName, surname: userSurname, streetAddress: userStreetAddress, city: userCity, occupation: userOccupation, company: userCompany, income: 1)
+        guard let income = self.income.text
+            else {
+                return
         }
+        let userIncome: Int? = Int(income)
+
+        guard let userName = name.text,
+            let userSurname = surname.text,
+            let userStreetAddress = streetAddress.text,
+            let userCity = city.text,
+            let userOccupation = occupation.text,
+            let userCompany = company.text,
+            let userInc = userIncome
+        else {
+            let alert = UIAlertController(title: "Profile NOT saved",
+                                          message: "The INCOME field must be a number", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: {self.income.text = ""})
+            return
+        }
+            self.currentProfile = Profile(name: userName,
+                                     surname: userSurname,
+                                     streetAddress: userStreetAddress,
+                                     city: userCity,
+                                     occupation: userOccupation,
+                                     company: userCompany,
+                                     income: userInc)
         saveProfile()
+        if let image = self.profileImage.image {
+            self.saveProfileImage(image)
+        }
     }
     
     // Declared let as a global field in order to use it in saveProfile and loadProfile
@@ -44,40 +72,43 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
     func saveProfile() {
         if let userCurrentProfile = currentProfile {
             if (NSKeyedArchiver.archiveRootObject(userCurrentProfile, toFile: profileArchiveURL.path)) {
-                print("Saved profile \(userCurrentProfile.name)")
+                let alert = UIAlertController(title: "Profile Saved",
+                                              message: "Your profile is succesfully saved", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     // END-UOC-3
     
     // BEGIN-UOC-4
-    var profiles: Profile?
+    var profile: Profile?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        if let savedProfiles =
+        if let savedProfile =
             NSKeyedUnarchiver.unarchiveObject(withFile: profileArchiveURL.path) as? Profile {
-            profiles = savedProfiles
+            self.profile = savedProfile
         }
     }
     
     func loadProfile() -> Profile {
-        if let savedProfiles = profiles {
-            let profile = savedProfiles
-            profileImage.image = loadProfileImage()
-            name.text = profile.name
-            surname.text = profile.surname
-            streetAddress.text = profile.streetAddress
-            city.text = profile.city
-            occupation.text = profile.occupation
-            company.text = profile.company
-            income.text = "\(profile.income)"
-            
-            return profile
+        guard let savedProf = self.profile
+        else {
+            return Profile(name: "", surname: "", streetAddress: "", city: "", occupation: "", company: "", income: 0)
         }
+        self.profileImage.image = loadProfileImage()
         
-        return Profile(name: "", surname: "", streetAddress: "", city: "", occupation: "", company: "", income: 0)
+        self.name.text = savedProf.name
+        self.surname.text = savedProf.surname
+        self.streetAddress.text = savedProf.streetAddress
+        self.city.text = savedProf.city
+        self.occupation.text = savedProf.occupation
+        self.company.text = savedProf.company
+        self.income.text = "\(savedProf.income)"
+        
+        return savedProf
     }
     // END-UOC-4
     
@@ -93,27 +124,32 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == name) {
-            surname.becomeFirstResponder()
-        } else if (textField == surname) {
-            streetAddress.becomeFirstResponder()
-        } else if (textField == streetAddress) {
-            city.becomeFirstResponder()
-        } else if (textField == city) {
-            occupation.becomeFirstResponder()
-        } else if (textField == occupation) {
-            company.becomeFirstResponder()
-        } else if (textField == company) {
-            income.becomeFirstResponder()
-        } else if (textField == income) {
-            self.view.endEditing(true)
+        if (textField == self.name) {
+            self.surname.becomeFirstResponder()
+        } else if (textField == self.surname) {
+            self.streetAddress.becomeFirstResponder()
+        } else if (textField == self.streetAddress) {
+            self.city.becomeFirstResponder()
+        } else if (textField == self.city) {
+            self.occupation.becomeFirstResponder()
+        } else if (textField == self.occupation) {
+            self.company.becomeFirstResponder()
+        } else if (textField == self.company) {
+            self.income.becomeFirstResponder()
+        } else if (textField == self.income) {
+            self.hideKeyboard()
         }
         return false
+    }
+    
+    @objc func hideKeyboard() {
+        self.view.endEditing(true)
     }
     // END-UOC-5
     
     // BEGIN-UOC-6
     @IBOutlet var profileImage: UIImageView!
+    
     @IBAction func takePicture(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
@@ -132,8 +168,8 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
         else {
             return
         }
-        profileImage.image = image
-        saveProfileImage(image)
+        self.profileImage.image = image
+//        saveProfileImage(image)
         dismiss(animated: true, completion: nil)
     }
     // END-UOC-6
@@ -147,6 +183,14 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
         return image
     }
     
+    public var documentsDirectoryURL: URL {
+        return FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
+    }
+    
+    public func fileURLInDocumentDirectory(_ fileName: String) -> URL {
+        return self.documentsDirectoryURL.appendingPathComponent(fileName)
+    }
+
     func saveProfileImage(_ image: UIImage) {
         guard let data = image.pngData() else {
             return
@@ -156,14 +200,6 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
             try data.write(to: fileURL)
         } catch {
         }
-    }
-    
-    public var documentsDirectoryURL: URL {
-        return FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
-    }
-    
-    public func fileURLInDocumentDirectory(_ fileName: String) -> URL {
-        return self.documentsDirectoryURL.appendingPathComponent(fileName)
     }
     // END-UOC-7
 }
