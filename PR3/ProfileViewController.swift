@@ -65,6 +65,7 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
     func loadProfile() -> Profile {
         if let savedProfiles = profiles {
             let profile = savedProfiles
+            profileImage.image = loadProfileImage()
             name.text = profile.name
             surname.text = profile.surname
             streetAddress.text = profile.streetAddress
@@ -127,19 +128,42 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate, UINavig
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        else {
+            return
+        }
         profileImage.image = image
+        saveProfileImage(image)
         dismiss(animated: true, completion: nil)
     }
     // END-UOC-6
     
     // BEGIN-UOC-7
     func loadProfileImage() -> UIImage? {
-        return UIImage(named: "EmptyProfile.png")
+        guard let image = UIImage(contentsOfFile: fileURLInDocumentDirectory("profile_image.png").path)
+            else{
+                return UIImage(named: "EmptyProfile.png")
+            }
+        return image
     }
     
     func saveProfileImage(_ image: UIImage) {
-        
+        guard let data = image.pngData() else {
+            return
+        }
+        let fileURL = self.fileURLInDocumentDirectory("profile_image.png")
+        do {
+            try data.write(to: fileURL)
+        } catch {
+        }
+    }
+    
+    public var documentsDirectoryURL: URL {
+        return FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
+    }
+    
+    public func fileURLInDocumentDirectory(_ fileName: String) -> URL {
+        return self.documentsDirectoryURL.appendingPathComponent(fileName)
     }
     // END-UOC-7
 }
